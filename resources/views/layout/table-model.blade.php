@@ -1,7 +1,3 @@
-@extends('layout.page')
-@section('content')
-<x-header-page title="Insumos"/>
-<x-form-filter />
 <div class="table-responsive">
     <table class="table table-bordered table-sm">
         <thead>
@@ -15,9 +11,11 @@
         <tbody>
             @foreach ($datas as $data)
             <tr>
-                <td>{{$data->id}}</td>
-                <td>{{$data->description}}</td>
-                <td style="text-align: center"><x-icon-eye-or-eye-close :status="$data->complement"/></td>
+                @php($source = $data->toArray())
+                @php($keys = array_keys($source))
+                @foreach ($keys as $key)
+                <td>{{$source[$key]}}</td>
+                @endforeach
                 <td style="text-align: center">
                     <a href="" class="btn btn-primary"><x-ico-edit/></a>
                 </td>
@@ -25,6 +23,4 @@
             @endforeach
         </tbody>
     </table>
-    <div style="text-align:center;width:100%">{{$datas->links()}}</div>
 </div>
-@endsection
